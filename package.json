@@ -1,0 +1,21 @@
+{
+  "name": "block_testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e:interactive": "npm run test:e2e -- --puppeteer-interactive",
+    "test:e2e": "wp-scripts test-e2e",
+    "wp-env:stop": "wp-env stop",
+    "wp-env:start": "wp-env start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/env": "^1.5.0"
+  },
+  "devDependencies": {
+    "@wordpress/e2e-test-utils": "^4.9.0",
+    "@wordpress/scripts": "^11.0.0"
+  }
+}
