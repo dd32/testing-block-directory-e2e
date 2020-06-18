@@ -20,7 +20,8 @@ branches:
 
 env:
   global:
-    - BLOCK_SLUG: block-a-saurus
+    - BLOCK_SLUG: boxer-block
+    - BLOCK_NAME: Boxer
     - WP_DEVELOP_DIR: ./wordpress
     - LOCAL_SCRIPT_DEBUG: false
 
@@ -49,4 +50,4 @@ jobs:
   include:
     - name: Run E2E Tests
       script:
-        - npm run test:e2e
+        - BLOCK_NAME=$BLOCK_NAME npm run test:e2e
