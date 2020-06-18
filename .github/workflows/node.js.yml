@@ -22,13 +22,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Install NPM
     - run: npm ci
+    - name: Configure & Start Environment
     - run: |
         echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "plugins":[ "https://downloads.wordpress.org/plugin/'$BLOCK_SLUG'.latest-stable.zip" ] }' > .wp-env.override.json
         chmod -R 767 ./
         npm run wp-env start
       env:
         BLOCK_SLUG: boxer-block
-    - run: BLOCK_NAME=Boxer npm run test:e2e
-      env:
-        BLOCK_NAME: Boxer
+    - name: Run End to End Tests
+    - run: npm run test:e2e

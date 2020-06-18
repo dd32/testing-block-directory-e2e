@@ -7,6 +7,16 @@ import {
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
 
+const thirdPartyBlocks = async () => {
+	return page.evaluate( () => {
+		const blocks = wp.data.select( 'core/blocks' ).getBlockTypes();
+
+		return blocks
+			.filter( ( i ) => ! i.name.startsWith( 'core' ) )
+			.map( ( i ) => i.title );
+	} );
+};
+
 describe( 'Block Directory Tests', () => {
 	beforeAll( async () => {
 		await createNewPost();
@@ -22,7 +32,12 @@ describe( 'Block Directory Tests', () => {
 	} );
 
 	it( 'Block can be inserted in the document', async () => {
-		await insertBlock( process.env.BLOCK_NAME );
+		const [ block ] = await thirdPartyBlocks();
+
+		// Make sure it's available
+		expect( block ).toBeDefined();
+
+		await insertBlock( block );
 		expect( await getAllBlocks() ).toHaveLength( 1 );
 	} );
 } );
