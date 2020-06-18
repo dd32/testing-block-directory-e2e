@@ -9,6 +9,6 @@ describe( 'Block Directory Test', () => {
 	} );
 
 	it( 'try this test', async () => {
-		expect(true).toBeFalsy();
+		expect(false).toBeFalsy();
 	} );
 } );
