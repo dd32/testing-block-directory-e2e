@@ -1,4 +1,4 @@
 {
-    "core": "WordPress/WordPress#master",
-    "plugins": [ "https://downloads.wordpress.org/plugin/boxer-block.latest-stable.zip" ]
+    "core": "WordPress/WordPress",
+    "plugins": []
 }
