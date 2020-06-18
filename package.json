@@ -1,5 +1,5 @@
 {
-  "name": "Block Directory E2E Tests",
+  "name": "Block-Directory-E2E-Tests",
   "version": "1.0.0",
   "description": "Runs minimal tests for block directory plugins",
   "main": "index.js",
