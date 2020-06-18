@@ -6,8 +6,7 @@
   "scripts": {
     "test:e2e:interactive": "npm run test:e2e -- --puppeteer-interactive",
     "test:e2e": "wp-scripts test-e2e",
-    "wp-env:stop": "wp-env stop",
-    "wp-env:start": "wp-env start"
+    "wp-env": "wp-env"
   },
   "author": "",
   "license": "ISC",
