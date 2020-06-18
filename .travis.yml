@@ -47,8 +47,6 @@ install:
 
 jobs:
   include:
-    - name: Testing
+    - name: Run E2E Tests
       script:
-        - docker ps -a
-        - curl -i http://localhost:8888/
-        - npm run wp-env run cli wp plugin list
+        - npm run test:e2e
