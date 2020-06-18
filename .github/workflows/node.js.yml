@@ -29,7 +29,6 @@ jobs:
         npm run wp-env start
       env:
         BLOCK_SLUG: boxer-block
-    - run: 
-        - BLOCK_NAME=Boxer npm run test:e2e
-        env:
-          BLOCK_NAME: Boxer
+    - run: BLOCK_NAME=Boxer npm run test:e2e
+      env:
+        BLOCK_NAME: Boxer
