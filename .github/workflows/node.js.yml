@@ -4,8 +4,8 @@
 name: Block Health Check
 
 on:
-  schedule:
-    - cron: '*/2 * * * *'
+  check_run:
+    types: [created]
 
 jobs:
   build:
