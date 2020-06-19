@@ -39,5 +39,9 @@ describe( 'Block Directory Tests', () => {
 
 		await insertBlock( block );
 		expect( await getAllBlocks() ).toHaveLength( 1 );
-	} );
+    } );
+    
+    it(' Fail to test outputs ', async () =>{
+        expect(true).toEqual(false);
+    })
 } );
