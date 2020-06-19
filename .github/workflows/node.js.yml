@@ -23,8 +23,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Check Configs
-      run: |
-        echo ${{ github.event }}
+      run: console.log(${{ github.event }})
     - name: Install NPM
       run: npm ci
     - name: Configure & Start Environment
