@@ -7,7 +7,7 @@ import {
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
 
-const thirdPartyBlocks = async () => {
+const getThirdPartyBlocks = async () => {
 	return page.evaluate( () => {
 		const blocks = wp.data.select( 'core/blocks' ).getBlockTypes();
 
@@ -32,7 +32,7 @@ describe( 'Block Directory Tests', () => {
 	} );
 
 	it( 'Block can be inserted in the document', async () => {
-		const [ block ] = await thirdPartyBlocks();
+		const [ block ] = await getThirdPartyBlocks();
 
 		// Make sure it's available
 		expect( block ).toBeDefined();
