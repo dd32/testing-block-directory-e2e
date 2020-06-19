@@ -22,6 +22,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Check Configs
+      run: |
+        echo ${{ github.event }}
     - name: Install NPM
       run: npm ci
     - name: Configure & Start Environment
