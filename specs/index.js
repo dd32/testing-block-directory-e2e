@@ -1,8 +1,3 @@
-/**
- * External dependencies
- */
-
-const core = require('@actions/core');
 
 /**
  * WordPress dependencies
@@ -51,11 +46,10 @@ describe( 'Block Directory Tests', () => {
     
     it(' Fail to test outputs ', async () => {
 
-        try {
-            expect(true).toEqual(false);
-        } catch (e) {
-            core.setFailed("We caught this error!");
-            throw new Error('Error');
-        }
+        // try {
+        //     expect(true).toEqual(false);
+        // } catch (e) {
+        //     throw new Error('Error');
+        // }
     })
 } );
