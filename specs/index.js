@@ -22,7 +22,7 @@ const getThirdPartyBlocks = async () => {
 	} );
 };
 
-const handleTest = ( testToRun, errorMessage ) => {
+const handleTest = async ( testToRun, errorMessage ) => {
 	try {
 		testToRun();
 	} catch (e) {
@@ -44,19 +44,14 @@ describe( 'Block Directory Tests', () => {
 		} );
 	} );
 
-	it( 'Block can be inserted in the document', async () => {
-		const [ block ] = await getThirdPartyBlocks();
+	it( 'Block can be inserted in the document', handleTest( () => {
+        const [ block ] = await getThirdPartyBlocks();
 
 		// Make sure it's available
 		expect( block ).toBeDefined();
 
 		await insertBlock( block );
-		expect( await getAllBlocks() ).toHaveLength( 1 );
-	} );
+		expect( await getAllBlocks() ).toHaveLength( 0 );
 
-	it( ' Fail to test outputs ', async () => {
-		handleTest( () => {
-			expect( true ).toEqual( false );
-		}, 'This is the error message' );
-	} );
+    },  "Error inserting block into document"));
 } );
