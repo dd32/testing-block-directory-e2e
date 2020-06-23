@@ -1,3 +1,7 @@
+/**
+ * External dependencies
+ */
+import core from '@actions/core';
 
 /**
  * WordPress dependencies
@@ -7,8 +11,6 @@ import {
 	insertBlock,
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
-
-
 
 const getThirdPartyBlocks = async () => {
 	return page.evaluate( () => {
@@ -42,14 +44,13 @@ describe( 'Block Directory Tests', () => {
 
 		await insertBlock( block );
 		expect( await getAllBlocks() ).toHaveLength( 1 );
-    } );
-    
-    it(' Fail to test outputs ', async () => {
+	} );
 
-        // try {
-        //     expect(true).toEqual(false);
-        // } catch (e) {
-        //     throw new Error('Error');
-        // }
-    })
+	it( ' Fail to test outputs ', async () => {
+		try {
+			expect( true ).toEqual( false );
+		} catch ( e ) {
+			core.setFailed(error.message);
+		}
+	} );
 } );
