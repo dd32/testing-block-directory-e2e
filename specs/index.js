@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-const core = require('@actions/core');
+const core = require( '@actions/core' );
 
 /**
  * WordPress dependencies
@@ -20,6 +20,14 @@ const getThirdPartyBlocks = async () => {
 			.filter( ( i ) => ! i.name.startsWith( 'core' ) )
 			.map( ( i ) => i.title );
 	} );
+};
+
+const handleTest = ( testToRun, errorMessage ) => {
+	try {
+		testToRun();
+	} catch ( e ) {
+		core.setFailed( e.message );
+	}
 };
 
 describe( 'Block Directory Tests', () => {
@@ -47,10 +55,8 @@ describe( 'Block Directory Tests', () => {
 	} );
 
 	it( ' Fail to test outputs ', async () => {
-		try {
+		handleTest( () => {
 			expect( true ).toEqual( false );
-		} catch ( e ) {
-			core.setFailed(e.message);
-		}
+		}, 'This is the error message' );
 	} );
 } );
