@@ -50,7 +50,7 @@ describe( 'Block Directory Tests', () => {
 		try {
 			expect( true ).toEqual( false );
 		} catch ( e ) {
-			core.setFailed(error.message);
+			core.setFailed(e.message);
 		}
 	} );
 } );
