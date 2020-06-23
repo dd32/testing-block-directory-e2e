@@ -45,7 +45,7 @@ describe( 'Block Directory Tests', () => {
 	} );
 
 	it( 'Block can be inserted in the document', async () => {
-        handleTest( () => {
+        handleTest( async () => {
             const [ block ] = await getThirdPartyBlocks();
 
     		// Make sure it's available
