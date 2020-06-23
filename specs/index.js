@@ -45,9 +45,12 @@ describe( 'Block Directory Tests', () => {
 
 			await insertBlock( block );
 
-			expect( await getAllBlocks() ).toHaveLength( 0 );
+            expect( await getAllBlocks() ).toHaveLength( 1 );
+
+            core.setOutput('result', 'success');
 		} catch ( e ) {
-			core.setFailed( 'Error inserting block into document' );
+            core.setOutput('result', 'failure');
+			core.setFailed( 'Error inserting block into document.' );
 		}
 	} );
 } );
