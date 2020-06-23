@@ -44,14 +44,16 @@ describe( 'Block Directory Tests', () => {
 		} );
 	} );
 
-	it( 'Block can be inserted in the document', handleTest( async () => {
-        const [ block ] = await getThirdPartyBlocks();
+	it( 'Block can be inserted in the document', async () => {
+        handleTest( () => {
+            const [ block ] = await getThirdPartyBlocks();
 
-		// Make sure it's available
-		expect( block ).toBeDefined();
+    		// Make sure it's available
+    		expect( block ).toBeDefined();
 
-		await insertBlock( block );
-		expect( await getAllBlocks() ).toHaveLength( 0 );
+    		await insertBlock( block );
+    		expect( await getAllBlocks() ).toHaveLength( 0 );
 
-    },  "Error inserting block into document"));
+        },  "Error inserting block into document")
+    });
 } );
