@@ -25,8 +25,8 @@ const getThirdPartyBlocks = async () => {
 const handleTest = ( testToRun, errorMessage ) => {
 	try {
 		testToRun();
-	} catch ( e ) {
-		core.setFailed( e.message );
+	} catch (e) {
+		core.setFailed( errorMessage );
 	}
 };
 
