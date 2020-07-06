@@ -40,13 +40,20 @@ describe( 'Block Directory Tests', () => {
 		try {
 			const [ block ] = await getThirdPartyBlocks();
 
+			console.log( 'Testing block named:' );
+			console.log( block );
+
 			// Make sure it's available
 			expect( block ).toBeDefined();
 
 			await insertBlock( block );
 
-            expect( await getAllBlocks() ).toHaveLength( 1 );
+			const blocks = await getAllBlocks();
 
+			console.log( 'Blocks in the document:' );
+			console.log( blocks );
+
+			expect( blocks ).toHaveLength( 1 );
 		} catch ( e ) {
 			core.setFailed( 'Error inserting block into document.' );
 		}
