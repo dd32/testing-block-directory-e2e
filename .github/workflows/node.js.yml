@@ -3,9 +3,7 @@
 
 name: Block Health Check
 
-on:
-  check_run:	
-    types: [created]
+on: repository_dispatch
 
 jobs:
   build:
@@ -23,7 +21,7 @@ jobs:
       run: npm ci
     - name: Configure & Start Environment
       run: |
-        echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "core": "WordPress/WordPress#master", "plugins":[ "https://downloads.wordpress.org/plugin/${{ github.event.check_run.external_id }}.latest-stable.zip", "https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip" ] }' > .wp-env.override.json
+        echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "core": "WordPress/WordPress#master", "plugins":[ "https://downloads.wordpress.org/plugin/${{ github.event.client_payload.block }}.latest-stable.zip", "https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip" ] }' > .wp-env.override.json
         chmod -R 767 ./
         npm run wp-env start
     - name: Run End to End Tests
