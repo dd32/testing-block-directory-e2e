@@ -12,10 +12,8 @@ import {
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
 
-
-
 // We don't want to see warnings during these tests
-console.warn = () => {}
+console.warn = () => {};
 
 const getThirdPartyBlocks = async () => {
 	return page.evaluate( () => {
@@ -39,24 +37,26 @@ describe( 'Block Directory Tests', () => {
 			const clientIds = blocks.map( ( block ) => block.clientId );
 			wp.data.dispatch( 'core/block-editor' ).removeBlocks( clientIds );
 		} );
-    } );
-    
+	} );
+
 	it( 'Block can be inserted in the document', async () => {
 		try {
 			const [ block ] = await getThirdPartyBlocks();
 
 			// Make sure it's available
-            expect( block ).toBeDefined();
-        } catch ( e ) {
-			core.setFailed( 'Could not find block in registered block list.' );
-        }
-        
-        try {
-			await insertBlock( block );
+			expect( block ).toBeDefined();
 
-			expect( await getAllBlocks() ).toHaveLength( 1 );
+			try {
+				await insertBlock( block );
+
+				expect( await getAllBlocks() ).toHaveLength( 1 );
+			} catch ( e ) {
+				core.setFailed(
+					'Block was not found in document after insert.'
+				);
+			}
 		} catch ( e ) {
-			core.setFailed( 'Block was not found in document after insert.' );
+			core.setFailed( 'Could not find block in registered block list.' );
 		}
 	} );
 } );
