@@ -2,6 +2,7 @@
  * External dependencies
  */
 const core = require( '@actions/core' );
+const github = require('@actions/github');
 
 /**
  * WordPress dependencies
@@ -36,9 +37,9 @@ const runTest = ( func, errorMessage ) => {
 describe( 'Block Directory Tests', () => {
 	beforeAll( async () => {
         await createNewPost();
-        const payload = JSON.stringify(github.event.client_payload)
+        const payload = JSON.stringify(github)
         console.log(payload)
-        console.log( 'Running test for:', payload.block)
+        // console.log( 'Running test for:', payload.block)
 	} );
 
 	beforeEach( async () => {
