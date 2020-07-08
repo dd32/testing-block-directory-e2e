@@ -38,7 +38,7 @@ const runTest = ( func, errorMessage ) => {
 	}
 };
 
-describe( `Block Directory Tests for ${payload.block}`, () => {
+describe( `Block Directory Tests for ${payload.client_payload.block}`, () => {
 	beforeAll( async () => {
         await createNewPost();
 
