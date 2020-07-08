@@ -13,6 +13,10 @@ import {
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
 
+
+// Pull properties from context.
+const payload = JSON.stringify(github.context.payload, undefined, 2)
+
 // We don't want to see warnings during these tests
 console.warn = () => {};
 
@@ -34,12 +38,10 @@ const runTest = ( func, errorMessage ) => {
 	}
 };
 
-describe( 'Block Directory Tests', () => {
+describe( `Block Directory Tests for ${payload.block}`, () => {
 	beforeAll( async () => {
         await createNewPost();
-        const payload = JSON.stringify(github)
-        console.log(payload)
-        // console.log( 'Running test for:', payload.block)
+
 	} );
 
 	beforeEach( async () => {
