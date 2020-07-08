@@ -38,6 +38,8 @@ const runTest = ( func, errorMessage ) => {
 	}
 };
 
+console.log(payload);
+
 describe( `Block Directory Tests for ${payload.client_payload.block}`, () => {
 	beforeAll( async () => {
         await createNewPost();
