@@ -35,7 +35,10 @@ const runTest = ( func, errorMessage ) => {
 
 describe( 'Block Directory Tests', () => {
 	beforeAll( async () => {
-		await createNewPost();
+        await createNewPost();
+        const payload = JSON.stringify(github.event.client_payload)
+        console.log(payload)
+        console.log( 'Running test for:', payload.block)
 	} );
 
 	beforeEach( async () => {
