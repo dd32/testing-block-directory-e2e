@@ -21,8 +21,16 @@ const getThirdPartyBlocks = async () => {
 
 		return blocks
 			.filter( ( i ) => ! i.name.startsWith( 'core' ) )
-			.map( ( i ) => i.title );
+			.map( ( i ) => i.title ); // We return a new object the block can have a react element which not serializable and would result in an undefined list
 	} );
+};
+
+const runTest = ( func, errorMessage ) => {
+	try {
+		func();
+	} catch ( e ) {
+		throw new Error( errorMessage );
+	}
 };
 
 describe( 'Block Directory Tests', () => {
@@ -41,22 +49,23 @@ describe( 'Block Directory Tests', () => {
 
 	it( 'Block can be inserted in the document', async () => {
 		try {
-			const [ block ] = await getThirdPartyBlocks();
+			const blocks = await getThirdPartyBlocks();
 
-			// Make sure it's available
-			expect( block ).toBeDefined();
+			runTest( () => {
+				expect( blocks.length ).toBeGreaterThan( 0 );
+			}, 'Could not find block in registered block list.' );
 
-			try {
-				await insertBlock( block );
+			runTest( () => {
+				expect( blocks ).toHaveLength( 1 );
+			}, 'Block registers multiple blocks.' );
 
+			await insertBlock( blocks[ 0 ] );
+
+			runTest( async () => {
 				expect( await getAllBlocks() ).toHaveLength( 1 );
-			} catch ( e ) {
-				core.setFailed(
-					'Block was not found in document after insert.'
-				);
-			}
+			}, 'Block was not found in document after insert.' );
 		} catch ( e ) {
-			core.setFailed( 'Could not find block in registered block list.' );
+			core.setFailed( e );
 		}
 	} );
 } );
