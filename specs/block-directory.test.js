@@ -50,8 +50,7 @@ describe( `Block Directory Tests`, () => {
 	it( 'Block returns from API and installs', async () => {
 		try {
             const { searchTerm } = github.context.payload.client_payload;
-            
-			console.log( 'Running a search for: ', searchTerm );
+
 			// Search for the block via the inserter
 			await searchForBlock( searchTerm );
 
@@ -59,13 +58,10 @@ describe( `Block Directory Tests`, () => {
 				'.block-directory-downloadable-blocks-list li:first-child button'
 			);
 
-            console.log( '----- Checking Block ----- ' );
 			runTest( () => {
 				expect( addBtn ).toBeDefined();
 			}, "The block wasn't returned from the API." );
 
-
-            console.log( '----- Clicking Block ----- ' );
 			// Add the block
 			await addBtn.click();
 
