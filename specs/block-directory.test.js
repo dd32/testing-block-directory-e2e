@@ -79,7 +79,9 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block can be inserted in the document', async () => {
 		try {
-			const blocks = await getThirdPartyBlocks();
+            const blocks = await getThirdPartyBlocks();
+            
+            console.log(blocks);
 
 			runTest( () => {
 				expect( blocks.length ).toBeGreaterThan( 0 );
