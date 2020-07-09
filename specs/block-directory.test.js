@@ -31,8 +31,8 @@ describe( `Block Directory Tests`, () => {
 	} );
 
 	afterAll( async () => {
-        const [ block ] = await getInstalledBlocks();
-        
+		const [ block ] = await getInstalledBlocks();
+
 		console.log( 'Deactivating: ', block.id );
 		await deactivatePlugin( block.id );
 
@@ -42,11 +42,10 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-
-            console.log(github.context.payload)
+			const { block } = github.context.payload.client_payload;
 
 			// Search for the block via the inserter
-			await searchForBlock( 'call-to-action-customizable-block' );
+			await searchForBlock( block );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
@@ -57,9 +56,9 @@ describe( `Block Directory Tests`, () => {
 			}, "The block wasn't returned from the API." );
 
 			// Add the block
-            await addBtn.click();
-            
-            // This timeout is necessary to allow the state to update -> Probably a better way.
+			await addBtn.click();
+
+			// This timeout is necessary to allow the state to update -> Probably a better way.
 			await new Promise( ( resolve ) => setTimeout( resolve, 10000 ) );
 			const content = await getEditedPostContent();
 
