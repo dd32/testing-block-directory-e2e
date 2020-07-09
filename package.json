@@ -6,8 +6,6 @@
   "scripts": {
     "test:e2e:interactive": "npm run test:e2e -- --puppeteer-interactive",
     "test:e2e": "wp-scripts test-e2e",
-    "test:e2e:block": "npm run test:e2e specs/block.test.js",
-    "test:e2e:block-directory": "npm run test:e2e specs/block-directory.test.js -- --puppeteer-interactive",
     "wp-env": "wp-env"
   },
   "author": "WordPress.org",

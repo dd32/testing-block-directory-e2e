@@ -24,11 +24,8 @@ jobs:
         echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "core": "WordPress/WordPress#master", "plugins":[ "https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip" ] }' > .wp-env.override.json
         chmod -R 767 ./
         npm run wp-env start
-    - name: Run End to End Tests (Block Directory)
-      id: testRunDirectory
-      run: npm run test:e2e:block-directory
     - name: Run End to End Tests
-      id: testRun
-      run: npm run test:e2e:block
+      id: testRunDirectory
+      run: npm run test:e2e
       
 
