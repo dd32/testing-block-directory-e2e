@@ -27,11 +27,11 @@ jobs:
     - name: Run End to End Tests
       id: testRun
       run: npm run test:e2e:block
-      if: github.event.client_payload.testDirectory == 'false'
+      if: github.event.client_payload.testDirectory == false
     - name: Run End to End Tests (Block Directory)
       id: testRunDirectory
       run: npm run test:e2e:block-directory
-      if: github.event.client_payload.testDirectory == 'true'
+      if: github.event.client_payload.testDirectory == true
 
       
 
