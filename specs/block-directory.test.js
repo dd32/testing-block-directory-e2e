@@ -69,7 +69,7 @@ describe( `Block Directory Tests`, () => {
 			// This timeout is necessary to allow the state to update -> Probably a better way.
 			await new Promise( ( resolve ) => setTimeout( resolve, 10000 ) );
 			const content = await getEditedPostContent();
-
+            console.log(content);
 			runTest( () => {
 				expect( content.length ).toBeGreaterThan( 0 );
 			}, "Couldn't install the block." );
