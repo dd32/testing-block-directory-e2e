@@ -2,6 +2,7 @@
  * External dependencies
  */
 const core = require( '@actions/core' );
+const github = require( '@actions/github' );
 
 /**
  * WordPress dependencies
@@ -41,8 +42,11 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
+
+            console.log(github.context.payload)
+
 			// Search for the block via the inserter
-			await searchForBlock( 'p5' );
+			await searchForBlock( 'call-to-action-customizable-block' );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
