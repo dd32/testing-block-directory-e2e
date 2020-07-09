@@ -29,7 +29,7 @@ jobs:
       run: npm run test:e2e:block
       if: github.event.client_payload.testDirectory == 'false'
     - name: Run End to End Tests (Block Directory)
-      id: testRun
+      id: testRunDirectory
       run: npm run test:e2e:block-directory
       if: github.event.client_payload.testDirectory == 'true'
 
