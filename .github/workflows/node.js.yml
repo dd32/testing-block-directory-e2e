@@ -27,5 +27,3 @@ jobs:
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
-      
-

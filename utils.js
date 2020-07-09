@@ -28,6 +28,7 @@ export const runTest = ( func, errorMessage ) => {
 	try {
 		func();
 	} catch ( e ) {
+        console.log( e );
 		throw new Error( errorMessage );
 	}
 };
