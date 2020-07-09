@@ -30,20 +30,10 @@ describe( `Block Directory Tests`, () => {
 		await removeAllBlocks();
 	} );
 
-	afterAll( async () => {
-		const [ block ] = await getInstalledBlocks();
-
-		console.log( 'Deactivating: ', block.id );
-		await deactivatePlugin( block.id );
-
-		console.log( 'Uninstalling: ', block.id );
-		await uninstallPlugin( block.id );
-	} );
-
 	it( 'Block returns from API and installs', async () => {
 		try {
-			const { searchTerm } = github.context.payload.client_payload;
-
+			//const { searchTerm } = github.context.payload.client_payload || 
+            const searchTerm = 'Recent posts block';
 			console.log( 'Running a search for: ', searchTerm );
 			// Search for the block via the inserter
 			await searchForBlock( searchTerm );
