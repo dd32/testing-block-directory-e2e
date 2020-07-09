@@ -42,11 +42,11 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-			const { block } = github.context.payload.client_payload;
+			const { searchTerm } = github.context.payload.client_payload;
 
-			console.log( 'Running a search for: ', block );
+			console.log( 'Running a search for: ', searchTerm );
 			// Search for the block via the inserter
-			await searchForBlock( block );
+			await searchForBlock( searchTerm );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
