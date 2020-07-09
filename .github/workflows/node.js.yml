@@ -26,4 +26,12 @@ jobs:
         npm run wp-env start
     - name: Run End to End Tests
       id: testRun
-      run: npm run test:e2e
+      run: npm run test:e2e:block
+      if: github.event.client_payload.testDirectory == 'false'
+    - name: Run End to End Tests (Block Directory)
+      id: testRun
+      run: npm run test:e2e:block-directory
+      if: github.event.client_payload.testDirectory == 'true'
+
+      
+
