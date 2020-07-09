@@ -59,17 +59,21 @@ describe( `Block Directory Tests`, () => {
 				'.block-directory-downloadable-blocks-list li:first-child button'
 			);
 
+            console.log( '----- Checking Block ----- ' );
 			runTest( () => {
 				expect( addBtn ).toBeDefined();
 			}, "The block wasn't returned from the API." );
 
+
+            console.log( '----- Clicking Block ----- ' );
 			// Add the block
 			await addBtn.click();
 
 			// This timeout is necessary to allow the state to update -> Probably a better way.
 			await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
 			const content = await getEditedPostContent();
-            console.log(content);
+
+           
 			runTest( () => {
 				expect( content.length ).toBeGreaterThan( 0 );
 			}, "Couldn't install the block." );
