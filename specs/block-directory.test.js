@@ -32,9 +32,9 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-			//const { searchTerm } = github.context.payload.client_payload || 
-            const searchTerm = 'Recent posts block';
-			console.log( 'Running a search for: ', searchTerm );
+			const { searchTerm } = github.context.payload.client_payload || 
+
+            console.log( 'Running a search for: ', searchTerm );
 			// Search for the block via the inserter
 			await searchForBlock( searchTerm );
 
