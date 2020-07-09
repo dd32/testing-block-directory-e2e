@@ -18,7 +18,7 @@ import {
  * Internal dependencies
  */
 
-import { getThirdPartyBlocks, runTest, removeAllBlocks } from '../utils';
+import { getInstalledBlocks, runTest, removeAllBlocks } from '../utils';
 
 // We don't want to see warnings during these tests
 console.warn = () => {};
@@ -30,13 +30,16 @@ describe( `Block Directory Tests`, () => {
 	} );
 
 	afterAll( async () => {
-		const blocks = await getThirdPartyBlocks();
+        const [ block ] = await getInstalledBlocks();
+        
+		console.log( 'Deactivating: ', block.id );
+		await deactivatePlugin( block.id );
 
-		await deactivatePlugin( 'wp-p5js-block' );
-		await uninstallPlugin( 'wp-p5js-block' );
+		console.log( 'Uninstalling: ', block.id );
+		await uninstallPlugin( block.id );
 	} );
 
-	it( 'Block returns from API as expected', async () => {
+	it( 'Block returns from API and installs', async () => {
 		try {
 			// Search for the block via the inserter
 			await searchForBlock( 'p5' );
@@ -50,8 +53,10 @@ describe( `Block Directory Tests`, () => {
 			}, "The block wasn't returned from the API." );
 
 			// Add the block
-			await addBtn.click();
-			await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
+            await addBtn.click();
+            
+            // This timeout is necessary to allow the state to update -> Probably a better way.
+			await new Promise( ( resolve ) => setTimeout( resolve, 10000 ) );
 			const content = await getEditedPostContent();
 
 			runTest( () => {
