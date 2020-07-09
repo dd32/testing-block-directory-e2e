@@ -49,8 +49,8 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-            const { searchTerm } = github.context.payload.client_payload;
-
+            //const { searchTerm } = github.context.payload.client_payload;
+            const searchTerm = "boxer";
 			// Search for the block via the inserter
 			await searchForBlock( searchTerm );
 
@@ -66,11 +66,11 @@ describe( `Block Directory Tests`, () => {
 			await addBtn.click();
 
 			// This timeout is necessary to allow the state to update -> Probably a better way.
-			await new Promise( ( resolve ) => setTimeout( resolve, 15000 ) );
+			await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
 			const content = await getEditedPostContent();
     
 			runTest( () => {
-				expect( content.length ).toBeGreaterThan( 0 );
+                expect( content.length ).toBeGreaterThan( 0 );
 			}, "Couldn't install the block." );
 		} catch ( e ) {
 			core.setFailed( e );
