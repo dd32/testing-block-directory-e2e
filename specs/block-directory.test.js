@@ -44,6 +44,7 @@ describe( `Block Directory Tests`, () => {
 		try {
 			const { block } = github.context.payload.client_payload;
 
+			console.log( 'Running a search for: ', block );
 			// Search for the block via the inserter
 			await searchForBlock( block );
 
