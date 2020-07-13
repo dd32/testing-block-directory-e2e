@@ -65,18 +65,6 @@ describe( `Block Directory Tests`, () => {
 				}
 			} );
 
-			// page.on( 'requestfailed', async ( request ) => {
-			//     console.log( 'Request Failed!!!');
-			//     console.log( request );
-
-			// } );
-
-			// page.on( 'response', async ( response ) => {
-			//     console.log( 'Response Finished!!!');
-			//     console.log( response.json() );
-
-			// } );
-
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
 			);

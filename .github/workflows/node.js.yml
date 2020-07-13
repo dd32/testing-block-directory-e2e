@@ -17,13 +17,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    # - name: Checkout Gutenberg repository
-    #   uses: actions/checkout@v2
-    #   with:
-    #     repository: wordpress/gutenberg
-    #     path: gutenberg
-    # - name: Build Gutenberg
-    #   run: cd gutenberg && npm install && npm run build
     - name: Install Block Testing Framework
       run: npm ci
     - name: Configure & Start Environment
