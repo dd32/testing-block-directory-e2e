@@ -17,20 +17,17 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Checkout Gutenberg repository
-      uses: actions/checkout@v2
-      with:
-        repository: wordpress/gutenberg
-        path: gutenberg
-    - name: Build Gutenberg
-      run: cd gutenberg && npm install && npm run build
+    # - name: Checkout Gutenberg repository
+    #   uses: actions/checkout@v2
+    #   with:
+    #     repository: wordpress/gutenberg
+    #     path: gutenberg
+    # - name: Build Gutenberg
+    #   run: cd gutenberg && npm install && npm run build
     - name: Install Block Testing Framework
       run: npm ci
     - name: Configure & Start Environment
-      run: |
-        echo '{ "config": { "WP_DEBUG": true, "SCRIPT_DEBUG": false, "WP_PHP_BINARY": "php", "WP_TESTS_EMAIL": "admin@example.org", "WP_TESTS_TITLE": "Test Blog" }, "core": "WordPress/WordPress#master", "plugins":[ "https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip" ] }' > .wp-env.override.json
-        chmod -R 767 ./
-        npm run wp-env start
+      run: npm run wp-env start   
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
