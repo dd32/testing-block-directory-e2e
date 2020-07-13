@@ -64,8 +64,14 @@ describe( `Block Directory Tests`, () => {
 			}, "The block wasn't returned from the API." );
 
 			// Add the block
-            await addBtn.click();
-            console.log(' we clicked the button' );
+			await addBtn.click();
+
+			console.log( 'Wait for the list item.' );
+			let listItem = await page.waitForSelector(
+				'.block-editor-block-types-list__list-item'
+			);
+
+			console.log( 'Received the list item.' );
 
 			// This timeout is necessary to allow the state to update -> Probably a better way.
 			await new Promise( ( resolve ) => setTimeout( resolve, 1000 ) );
