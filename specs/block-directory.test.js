@@ -49,20 +49,23 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-            //const { searchTerm } = github.context.payload.client_payload;
-            const searchTerm = "boxer";
+			//const { searchTerm } = github.context.payload.client_payload;
+			const searchTerm = 'boxer';
 			await searchForBlock( searchTerm );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
-            );
+			);
 
 			runTest( () => {
 				expect( addBtn ).toBeDefined();
+				console.log( ' we have the button! ' );
+				console.log( addBtn );
 			}, "The block wasn't returned from the API." );
 
 			// Add the block
-			await addBtn.click();
+            await addBtn.click();
+            console.log(' we clicked the button' );
 
 			// This timeout is necessary to allow the state to update -> Probably a better way.
 			await new Promise( ( resolve ) => setTimeout( resolve, 1000 ) );
