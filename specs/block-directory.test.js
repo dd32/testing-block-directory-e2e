@@ -53,10 +53,29 @@ describe( `Block Directory Tests`, () => {
 			const searchTerm = 'boxer';
 			await searchForBlock( searchTerm );
 
-			page.on( 'request', async ( request ) => {
-				console.log( request );
-				request.continue();
+			page.on( 'requestfinished', async ( request ) => {
+				if (
+					request
+						.url()
+						.indexOf(
+							'http://localhost:8889/index.php?rest_route=%2Fwp%2Fv2%2Fplugins'
+						) >= 0
+				) {
+					console.log( request.response() );
+				}
 			} );
+
+			// page.on( 'requestfailed', async ( request ) => {
+			//     console.log( 'Request Failed!!!');
+			//     console.log( request );
+
+			// } );
+
+			// page.on( 'response', async ( response ) => {
+			//     console.log( 'Response Finished!!!');
+			//     console.log( response.json() );
+
+			// } );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
