@@ -17,8 +17,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install Gutenberg
-      run: git clone git@github.com:WordPress/gutenberg.git && ls -al && cd gutenberg && npm install && npm run build
+    - name: Checkout tools repo
+      uses: actions/checkout@v2
+      with:
+        repository: https://github.com/wordpress/gutenberg
+    - name: Check repo
+      run: ls -al
     - name: Install NPM
       run: npm ci
     - name: Configure & Start Environment
