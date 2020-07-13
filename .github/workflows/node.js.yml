@@ -21,6 +21,8 @@ jobs:
       run: npm ci
     - name: Configure & Start Environment
       run: npm run wp-env start   
+    - name: Show logs
+      run: npm -g i @wordpress/env && wp-env logs --no-watch
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
