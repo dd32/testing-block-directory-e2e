@@ -53,14 +53,17 @@ describe( `Block Directory Tests`, () => {
 			const searchTerm = 'boxer';
 			await searchForBlock( searchTerm );
 
+			page.on( 'request', async ( request ) => {
+				console.log( request );
+				request.continue();
+			} );
+
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
 			);
 
 			runTest( () => {
 				expect( addBtn ).toBeDefined();
-				console.log( ' we have the button! ' );
-				console.log( addBtn );
 			}, "The block wasn't returned from the API." );
 
 			// Add the block
