@@ -31,49 +31,6 @@ import {
 // We don't want to see warnings during these tests
 console.warn = () => {};
 
-export const itCanInsertFromDirectory = async ( searchTerm ) => {
-	// Search for the block via the inserter
-	await searchForBlock( searchTerm );
-
-	let addBtn = await page.waitForSelector(
-		'.block-directory-downloadable-blocks-list li:first-child button'
-	);
-
-	runTest( () => {
-		expect( addBtn ).toBeDefined();
-	}, "The block wasn't returned from the API." );
-
-	// Add the block
-	await addBtn.click();
-
-	// This timeout is necessary to allow the state to update -> Probably a better way.
-	await new Promise( ( resolve ) => setTimeout( resolve, 15000 ) );
-	const blocks = await getThirdPartyBlocks();
-
-	runTest( () => {
-		expect( blocks.length ).toBeGreaterThan( 0 );
-	}, "Couldn't install the block." );
-};
-
-export const itCanInsertAfterInstall = async () => {
-	const blocks = await getThirdPartyBlocks();
-
-	runTest( () => {
-		expect( blocks.length ).toBeGreaterThan( 0 );
-	}, 'Could not find block in registered block list.' );
-
-	runTest( () => {
-		expect( blocks ).toHaveLength( 1 );
-	}, 'Block registers multiple blocks.' );
-
-	await insertBlock( blocks[ 0 ] );
-	const blockList = await getAllBlocks();
-
-	runTest( () => {
-		expect( blockList ).toHaveLength( 1 );
-	}, 'Block was not found in document after insert.' );
-};
-
 describe( `Block Directory Tests`, () => {
 	beforeEach( async () => {
 		await createNewPost();
@@ -92,8 +49,28 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-			//const { searchTerm } = github.context.payload.client_payload;
-			await itCanInsertFromDirectory( 'boxer' );
+            //const { searchTerm } = github.context.payload.client_payload;
+            const searchTerm = "boxer";
+			await searchForBlock( searchTerm );
+
+			let addBtn = await page.waitForSelector(
+				'.block-directory-downloadable-blocks-list li:first-child button'
+            );
+
+			runTest( () => {
+				expect( addBtn ).toBeDefined();
+			}, "The block wasn't returned from the API." );
+
+			// Add the block
+			await addBtn.click();
+
+			// This timeout is necessary to allow the state to update -> Probably a better way.
+			await new Promise( ( resolve ) => setTimeout( resolve, 1000 ) );
+			const blocks = await getThirdPartyBlocks();
+
+			runTest( () => {
+				expect( blocks.length ).toBeGreaterThan( 0 );
+			}, "Couldn't install the block." );
 		} catch ( e ) {
 			core.setFailed( e );
 		}
@@ -101,7 +78,22 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block can be inserted in the document', async () => {
 		try {
-			await itCanInsertAfterInstall();
+			const blocks = await getThirdPartyBlocks();
+
+			runTest( () => {
+				expect( blocks.length ).toBeGreaterThan( 0 );
+			}, 'Could not find block in registered block list.' );
+
+			runTest( () => {
+				expect( blocks ).toHaveLength( 1 );
+			}, 'Block registers multiple blocks.' );
+
+			await insertBlock( blocks[ 0 ] );
+			const blockList = await getAllBlocks();
+
+			runTest( () => {
+				expect( blockList ).toHaveLength( 1 );
+			}, 'Block was not found in document after insert.' );
 		} catch ( e ) {
 			core.setFailed( e );
 		}
