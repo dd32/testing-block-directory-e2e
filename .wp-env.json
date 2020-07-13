@@ -1,5 +1,10 @@
 {
-	"config": { "WP_DEBUG": true, "SCRIPT_DEBUG": true, "WP_DEBUG_LOG": true },
+	"config": {
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": true,
+		"WP_DEBUG_LOG": true,
+		"FS_METHOD": "direct"
+	},
 	"core": "WordPress/WordPress#master",
 	"plugins": [ "WordPress/gutenberg#master" ]
 }
