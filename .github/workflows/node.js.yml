@@ -21,8 +21,8 @@ jobs:
       run: npm ci
     - name: Configure & Start Environment
       run: npm run wp-env start   
-    - name: Check permissions
-      run: docker exec -t $( docker ps -qf "name=tests" ) chmod -R 767 /var/www/html/wp-content
+    - name: Check permissions 
+      run: docker exec -t $( docker ps -qf "name=tests" ) ls -laR /var/www/html/wp-content
     - name: Modify docker permissions
       run: docker exec -t $( docker ps -qf "name=tests" ) chmod -R 767 /var/www/html/wp-content
     - name: Run End to End Tests
