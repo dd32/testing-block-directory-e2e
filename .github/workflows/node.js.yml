@@ -26,5 +26,5 @@ jobs:
       run: npm run test:e2e
     - name: Print logs
       run: |
-        docker exec -it $( docker ps -qf "name=tests" ) /bin/bash
+        docker exec -t $( docker ps -qf "name=tests" ) /bin/bash
         cat /tmp/wp-errors.log
