@@ -23,11 +23,8 @@ jobs:
       run: npm run wp-env start
     - name: Modify plugins folder permissions
       run: docker exec -t $( docker ps -qf "name=tests" ) chmod -R 755 /var/www/html/wp-content/plugins
+    - name: Check permissions 
+      run: docker exec -t $( docker ps -qf "name=tests" ) ls -laR /var/www/html/wp-content
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
-    - name: Print error logs
-      run: |
-        docker ps
-        docker cp $( docker ps -qf "name=tests" ):/tmp/wp-errors.log error.log
-        cat error.log
