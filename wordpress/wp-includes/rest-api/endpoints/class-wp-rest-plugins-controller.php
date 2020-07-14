@@ -277,11 +277,17 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 		$slug = $request['slug'];
 
+		error_log( 'Checking filesystem' );
 		// Verify filesystem is accessible first.
 		$filesystem_available = $this->is_filesystem_available();
+
+		error_log( 'Checked file system' );
 		if ( is_wp_error( $filesystem_available ) ) {
+			error_log( 'Found and error with file system' );
 			return $filesystem_available;
 		}
+		error_log( 'After filesystem check' );
+
 
 		$api = plugins_api(
 			'plugin_information',
@@ -293,6 +299,8 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 			)
 		);
 
+		error_log( 'Called API' );
+
 		if ( is_wp_error( $api ) ) {
 			if ( false !== strpos( $api->get_error_message(), 'Plugin not found.' ) ) {
 				$api->add_data( array( 'status' => 404 ) );
@@ -303,11 +311,13 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 			return $api;
 		}
 
+		error_log( 'Installing pre skin' );
 		$skin     = new WP_Ajax_Upgrader_Skin();
+		error_log( 'Installing post skin' );
 		$upgrader = new Plugin_Upgrader( $skin );
 
 		$result = $upgrader->install( $api->download_link );
-
+		error_log( 'Result after upgrader install' );
 		if ( is_wp_error( $result ) ) {
 			$result->add_data( array( 'status' => 500 ) );
 
@@ -320,7 +330,7 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 
 			return $skin->result;
 		}
-
+		error_log( 'Checking skin errors' );
 		if ( $skin->get_errors()->has_errors() ) {
 			$error = $skin->get_errors();
 			$error->add_data( array( 'status' => 500 ) );
@@ -337,7 +347,7 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 
 			return new WP_Error( 'unable_to_connect_to_filesystem', __( 'Unable to connect to the filesystem. Please confirm your credentials.' ), array( 'status' => 500 ) );
 		}
-
+		error_log( 'Grabbing plugin info' );
 		$file = $upgrader->plugin_info();
 
 		if ( ! $file ) {
@@ -361,11 +371,12 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		$path          = WP_PLUGIN_DIR . '/' . $file;
 		$data          = get_plugin_data( $path, false, false );
 		$data['_file'] = $file;
+		error_log( 'Creating response' );
 
 		$response = $this->prepare_item_for_response( $data, $request );
 		$response->set_status( 201 );
 		$response->header( 'Location', rest_url( sprintf( '%s/%s/%s', $this->namespace, $this->rest_base, substr( $file, 0, - 4 ) ) ) );
-
+		error_log( 'Sending response' );
 		return $response;
 	}
 	catch (exception $e) {
@@ -807,13 +818,17 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		$filesystem_method = get_filesystem_method();
 
 		if ( 'direct' === $filesystem_method ) {
+
+			error_log( 'REturning true because of direct' );
 			return true;
 		}
 
+		error_log( 'Starting OB' );
 		ob_start();
 		$filesystem_credentials_are_stored = request_filesystem_credentials( self_admin_url() );
 		ob_end_clean();
 
+		error_log( 'Ending OB' );
 		if ( $filesystem_credentials_are_stored ) {
 			return true;
 		}
