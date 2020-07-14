@@ -36,9 +36,9 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-            const { searchTerm } = github.context.payload.client_payload;
-
-            await searchForBlock( searchTerm );
+            //const { searchTerm } = github.context.payload.client_payload;
+            const searchTerm = 'waves';
+           await searchForBlock( searchTerm );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
@@ -51,9 +51,7 @@ describe( `Block Directory Tests`, () => {
 			// Add the block
 			await addBtn.click();
 
-			let listItem = await page.waitForSelector(
-				'.block-editor-block-types-list__list-item'
-			);
+			await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
 
 			const blocks = await getThirdPartyBlocks();
 
