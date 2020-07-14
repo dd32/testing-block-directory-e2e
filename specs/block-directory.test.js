@@ -10,9 +10,6 @@ const github = require( '@actions/github' );
 import {
 	createNewPost,
 	searchForBlock,
-	getEditedPostContent,
-	deactivatePlugin,
-	uninstallPlugin,
 	insertBlock,
 	getAllBlocks,
 } from '@wordpress/e2e-test-utils';
@@ -37,33 +34,11 @@ describe( `Block Directory Tests`, () => {
 		await removeAllBlocks();
 	} );
 
-	// afterAll( async () => {
-	// 	const [ block ] = await getThirdPartyBlocks();
-
-	// 	console.log( 'Deactivating: ', block.id );
-	// 	await deactivatePlugin( block.id );
-
-	// 	console.log( 'Uninstalling: ', block.id );
-	// 	await uninstallPlugin( block.id );
-	// } );
-
 	it( 'Block returns from API and installs', async () => {
 		try {
-			//const { searchTerm } = github.context.payload.client_payload;
-			const searchTerm = 'boxer';
-			await searchForBlock( searchTerm );
+            const { searchTerm } = github.context.payload.client_payload;
 
-			page.on( 'requestfinished', async ( request ) => {
-				if (
-					request
-						.url()
-						.indexOf(
-							'http://localhost:8889/index.php?rest_route=%2Fwp%2Fv2%2Fplugins'
-						) >= 0
-				) {
-					console.log( request.response() );
-				}
-			} );
+            await searchForBlock( searchTerm );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
@@ -76,15 +51,10 @@ describe( `Block Directory Tests`, () => {
 			// Add the block
 			await addBtn.click();
 
-			console.log( 'Wait for the list item.' );
 			let listItem = await page.waitForSelector(
 				'.block-editor-block-types-list__list-item'
 			);
 
-			console.log( 'Received the list item.' );
-
-			// This timeout is necessary to allow the state to update -> Probably a better way.
-			await new Promise( ( resolve ) => setTimeout( resolve, 1000 ) );
 			const blocks = await getThirdPartyBlocks();
 
 			runTest( () => {
