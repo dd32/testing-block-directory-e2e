@@ -1,6 +1,10 @@
-{	
+{
+	"config": {
+		"WP_DEBUG": true,
+		"SCRIPT_DEBUG": true,
+		"WP_DEBUG_LOG": "/tmp/wp-errors.log",
+		"FS_METHOD": "direct"
+	},
 	"core": "WordPress/WordPress#master",
-	"plugins": [
-		"https://downloads.wordpress.org/plugin/gutenberg.latest-stable.zip"
-	]
+	"plugins": [ "WordPress/gutenberg#master" ]
 }

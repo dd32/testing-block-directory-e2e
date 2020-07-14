@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test:e2e:interactive": "npm run test:e2e -- --puppeteer-interactive",
-    "test:e2e": "wp-scripts test-e2e",
+    "test:e2e": "PUPPETEER_TIMEOUT=1000000 wp-scripts test-e2e",
     "wp-env": "wp-env"
   },
   "author": "WordPress.org",
