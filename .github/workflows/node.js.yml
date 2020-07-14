@@ -20,11 +20,11 @@ jobs:
     - name: Install Block Testing Framework
       run: npm ci
     - name: Configure & Start Environment
-      run: npm run wp-env start   
+      run: npm run wp-env start
+    - name: Modify docker permissions
+      run: docker exec -t $( docker ps -qf "name=tests" ) chmod -R 755 /var/www/html/wp-content/plugins
     - name: Check permissions 
       run: docker exec -t $( docker ps -qf "name=tests" ) ls -laR /var/www/html/wp-content
-    - name: Modify docker permissions
-      run: docker exec -t $( docker ps -qf "name=tests" ) chmod -R 767 /var/www/html/wp-content
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
