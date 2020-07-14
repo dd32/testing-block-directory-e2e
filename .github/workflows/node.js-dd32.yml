@@ -21,8 +21,8 @@ jobs:
       run: npm ci
     - name: Configure & Start Environment
       run: npm run wp-env start
-    - name: Debug
-      uses: mxschmitt/action-tmate@v2
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
+    - name: Debug
+      uses: mxschmitt/action-tmate@v2
