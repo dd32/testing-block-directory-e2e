@@ -25,4 +25,4 @@ jobs:
       id: testRunDirectory
       run: npm run test:e2e
     - name: Show logs
-      run: npm -g i @wordpress/env && wp-env logs --no-watch
+      run: npm -g i @wordpress/env && wp-env logs -- --watch=false --environment=tests
