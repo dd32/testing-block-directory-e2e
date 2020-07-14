@@ -334,10 +334,10 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		if ( $skin->get_errors()->has_errors() ) {
 			error_log( 'We have skin errors!' );
 
-			error_log( print_r( $skin, true) );
+			
 			$error = $skin->get_errors();
 			$error->add_data( array( 'status' => 500 ) );
-			
+			error_log( print_r( $error, true) );
 			return $error;
 		}
 
