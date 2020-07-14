@@ -77,6 +77,8 @@ class WP_REST_Block_Directory_Controller extends WP_REST_Controller {
 		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
+		error_log( 'Searching for plugins' );
+
 		$response = plugins_api(
 			'query_plugins',
 			array(

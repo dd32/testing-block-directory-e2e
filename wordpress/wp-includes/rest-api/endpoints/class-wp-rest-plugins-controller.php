@@ -270,6 +270,7 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		try {
 			// run your code here
 
+		error_log( 'Trying to install plugin' );
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
