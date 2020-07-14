@@ -24,5 +24,7 @@ jobs:
     - name: Run End to End Tests
       id: testRunDirectory
       run: npm run test:e2e
-    - name: Show logs
-      run: npm -g i @wordpress/env && wp-env logs -- --watch=false --environment=tests
+    - name: Print logs
+      run: |
+        docker exec -it $( docker ps -qf "name=tests" ) /bin/bash
+        cat /tmp/wp-errors.log

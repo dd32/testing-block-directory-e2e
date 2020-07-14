@@ -267,11 +267,13 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function create_item( $request ) {
+		try {
+			// run your code here
+
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 		require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
-
 		$slug = $request['slug'];
 
 		// Verify filesystem is accessible first.
@@ -364,6 +366,12 @@ class WP_REST_Plugins_Controller extends WP_REST_Controller {
 		$response->header( 'Location', rest_url( sprintf( '%s/%s/%s', $this->namespace, $this->rest_base, substr( $file, 0, - 4 ) ) ) );
 
 		return $response;
+	}
+	catch (exception $e) {
+		error_log( 'Caught Exception' );
+		error_log( $e );
+	}
+
 	}
 
 	/**
