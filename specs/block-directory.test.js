@@ -95,7 +95,7 @@ describe( `Block Directory Tests`, () => {
 
 			runTest( () => {
 				expect( blocks.length ).toBeGreaterThan( 0 );
-			}, 'Could not find block in registered block list.' );
+			}, 'Could not find block in registered block list on page load.' );
 
 			runTest( () => {
 				expect( blocks ).toHaveLength( 1 );
