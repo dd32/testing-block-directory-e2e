@@ -40,10 +40,10 @@ describe( `Block Directory Tests`, () => {
 		await removeAllBlocks();
 	} );
 
-	it( 'Block returns from API and installs', async () => {
+    it( 'Block returns from API and installs', async () => {
 		try {
-			const { searchTerm } = github.context.payload.client_payload;
-			await searchForBlock( searchTerm );
+			//const { searchTerm } = github.context.payload.client_payload;
+			await searchForBlock( 'Boxer' );
 
 			const finalResponse = await page.waitForResponse(
 				( response ) =>
@@ -73,7 +73,7 @@ describe( `Block Directory Tests`, () => {
 			runTest( () => {
 				expect( addBtn ).toBeDefined();
 			}, "The block wasn't returned from the API." );
-
+            
 			// Add the block
 			await addBtn.click();
 
@@ -85,7 +85,8 @@ describe( `Block Directory Tests`, () => {
 				expect( blocks.length ).toBeGreaterThan( 0 );
 			}, "Couldn't install the block." );
 		} catch ( e ) {
-			core.setFailed( e );
+            core.setFailed( e );
+            throw new Error();
 		}
 	} );
 
@@ -108,7 +109,8 @@ describe( `Block Directory Tests`, () => {
 				expect( blockList ).toHaveLength( 1 );
 			}, 'Block was not found in document after insert.' );
 		} catch ( e ) {
-			core.setFailed( e );
+            core.setFailed( e );
+            throw new Error();
 		}
 	} );
 } );
