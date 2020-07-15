@@ -28,6 +28,12 @@ import {
 // We don't want to see warnings during these tests
 console.warn = () => {};
 
+const urlMatch = ( url ) => {
+	const urlPart = '/wp/v2/block-directory/search';
+	const encoded = encodeURIComponent( urlPart );
+	return url.indexOf( urlPart ) >= 0 || url.indexOf( encoded ) >= 0;
+};
+
 describe( `Block Directory Tests`, () => {
 	beforeEach( async () => {
 		await createNewPost();
@@ -36,8 +42,29 @@ describe( `Block Directory Tests`, () => {
 
 	it( 'Block returns from API and installs', async () => {
 		try {
-            const { searchTerm } = github.context.payload.client_payload;
-           await searchForBlock( searchTerm );
+			const { searchTerm } = github.context.payload.client_payload;
+			await searchForBlock( searchTerm );
+
+			const finalResponse = await page.waitForResponse(
+				( response ) =>
+					urlMatch( response.url() ) &&
+					response.status() === 200 &&
+					response.request().method() === 'GET' // We don't want the OPTIONS request
+			);
+
+			const resp = await finalResponse.json();
+
+			runTest( () => {
+				expect( Array.isArray( resp ) ).toBeTruthy();
+			}, "Search result isn't an array." );
+
+			runTest( () => {
+				expect( resp.length ).toBeLessThan( 2 );
+			}, 'We found multiple blocks for that string.' );
+
+			runTest( () => {
+				expect( resp ).toHaveLength( 1 );
+			}, 'We found no matching blocks in the directory.' );
 
 			let addBtn = await page.waitForSelector(
 				'.block-directory-downloadable-blocks-list li:first-child button'
