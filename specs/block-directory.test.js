@@ -90,7 +90,7 @@ describe( `Block Directory Tests`, () => {
 		}
 	} );
 
-	it( 'Block can be inserted in the document', async () => {
+	it( 'Block can be inserted in the document on page reload', async () => {
 		try {
 			const blocks = await getThirdPartyBlocks();
 
