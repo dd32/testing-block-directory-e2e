@@ -92,6 +92,10 @@ describe( `Block Directory Tests`, () => {
 			runTest( () => {
 				expect( blocks.length ).toBeGreaterThan( 0 );
             }, `Couldn't install "${searchTerm}".` );
+
+
+
+
             
             core.setOutput( 'success', true )
 		} catch ( e ) {
@@ -102,30 +106,31 @@ describe( `Block Directory Tests`, () => {
 		}
 	} );
 
-	it( 'Block can be inserted in the document on page reload', async () => {
-		try {
-			const blocks = await getThirdPartyBlocks();
+    // This initially tested the block itself without the directory. We don't need this right now until we get other things sorted.
+	// it( 'Block can be inserted in the document on page reload', async () => {
+	// 	try {
+	// 		const blocks = await getThirdPartyBlocks();
 
-			runTest( () => {
-				expect( blocks.length ).toBeGreaterThan( 0 );
-			}, 'Could not find block in registered block list on page load.' );
+	// 		runTest( () => {
+	// 			expect( blocks.length ).toBeGreaterThan( 0 );
+	// 		}, 'Could not find block in registered block list on page load.' );
 
-			runTest( () => {
-				expect( blocks ).toHaveLength( 1 );
-			}, 'Block registers multiple blocks.' );
+	// 		runTest( () => {
+	// 			expect( blocks ).toHaveLength( 1 );
+	// 		}, 'Block registers multiple blocks.' );
 
-			await insertBlock( blocks[ 0 ] );
-			const blockList = await getAllBlocks();
+	// 		await insertBlock( blocks[ 0 ] );
+	// 		const blockList = await getAllBlocks();
 
-			runTest( () => {
-				expect( blockList ).toHaveLength( 1 );
-            }, 'Block was not found in document after insert.' );
-            core.setOutput( 'success', true )
-		} catch ( e ) {
-            core.setFailed( e );
-            core.setOutput( 'error', e )
-            core.setOutput( 'success', false )
-            throw new Error();
-		}
-	} );
+	// 		runTest( () => {
+	// 			expect( blockList ).toHaveLength( 1 );
+    //         }, 'Block was not found in document after insert.' );
+    //         core.setOutput( 'success', true )
+	// 	} catch ( e ) {
+    //         core.setFailed( e );
+    //         core.setOutput( 'error', e )
+    //         core.setOutput( 'success', false )
+    //         throw new Error();
+	// 	}
+	// } );
 } );
