@@ -42,8 +42,8 @@ describe( `Block Directory Tests`, () => {
 
     it( 'Block returns from API and installs', async () => {
 		try {
-			//const { searchTerm } = github.context.payload.client_payload;
-			await searchForBlock( 'Boxer' );
+			const { searchTerm } = github.context.payload.client_payload;
+			await searchForBlock( searchTerm );
 
 			const finalResponse = await page.waitForResponse(
 				( response ) =>
