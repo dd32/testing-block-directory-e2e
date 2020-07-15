@@ -49,76 +49,79 @@ describe( `Block Directory Tests`, () => {
     Running Tests for "${searchTerm}"
     -------------------------------
     
-    
+
     `);
 
     it( 'Block returns from API and installs', async () => {
-		try {
+		// try {
 
-			await searchForBlock( searchTerm );
+		// 	await searchForBlock( searchTerm );
 
-			const finalResponse = await page.waitForResponse(
-				( response ) =>
-					urlMatch( response.url() ) &&
-					response.status() === 200 &&
-					response.request().method() === 'GET' // We don't want the OPTIONS request
-			);
+		// 	const finalResponse = await page.waitForResponse(
+		// 		( response ) =>
+		// 			urlMatch( response.url() ) &&
+		// 			response.status() === 200 &&
+		// 			response.request().method() === 'GET' // We don't want the OPTIONS request
+		// 	);
 
-			const resp = await finalResponse.json();
+		// 	const resp = await finalResponse.json();
 
-			runTest( () => {
-				expect( Array.isArray( resp ) ).toBeTruthy();
-			}, `The search result for "${searchTerm}" isn't an array.` );
+		// 	runTest( () => {
+		// 		expect( Array.isArray( resp ) ).toBeTruthy();
+		// 	}, `The search result for "${searchTerm}" isn't an array.` );
 
-			runTest( () => {
-				expect( resp.length ).toBeLessThan( 2 );
-			}, `We found multiple blocks for "${searchTerm}".` );
+		// 	runTest( () => {
+		// 		expect( resp.length ).toBeLessThan( 2 );
+		// 	}, `We found multiple blocks for "${searchTerm}".` );
 
-			runTest( () => {
-				expect( resp ).toHaveLength( 1 );
-			}, `We found no matching blocks for "${searchTerm}" in the directory.` );
+		// 	runTest( () => {
+		// 		expect( resp ).toHaveLength( 1 );
+		// 	}, `We found no matching blocks for "${searchTerm}" in the directory.` );
 
-			let addBtn = await page.waitForSelector(
-				'.block-directory-downloadable-blocks-list li:first-child button'
-			);
+		// 	let addBtn = await page.waitForSelector(
+		// 		'.block-directory-downloadable-blocks-list li:first-child button'
+		// 	);
    
-			// Add the block
-			await addBtn.click();
+		// 	// Add the block
+		// 	await addBtn.click();
 
-			await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
+		// 	await new Promise( ( resolve ) => setTimeout( resolve, 5000 ) );
 
-			const blocks = await getThirdPartyBlocks();
+		// 	const blocks = await getThirdPartyBlocks();
 
-			runTest( () => {
-				expect( blocks.length ).toBeGreaterThan( 0 );
-			}, `Couldn't install "${searchTerm}".` );
-		} catch ( e ) {
-            core.setFailed( e );
-            throw new Error();
-		}
+		// 	runTest( () => {
+		// 		expect( blocks.length ).toBeGreaterThan( 0 );
+		// 	}, `Couldn't install "${searchTerm}".` );
+		// } catch ( e ) {
+        //     core.setFailed( e );
+        //     throw new Error();
+        // }
+        
+        core.setOutput('success', 'false');
+        core.setOutput('error', 'Something here');
 	} );
 
-	it( 'Block can be inserted in the document on page reload', async () => {
-		try {
-			const blocks = await getThirdPartyBlocks();
+	// it( 'Block can be inserted in the document on page reload', async () => {
+	// 	try {
+	// 		const blocks = await getThirdPartyBlocks();
 
-			runTest( () => {
-				expect( blocks.length ).toBeGreaterThan( 0 );
-			}, 'Could not find block in registered block list on page load.' );
+	// 		runTest( () => {
+	// 			expect( blocks.length ).toBeGreaterThan( 0 );
+	// 		}, 'Could not find block in registered block list on page load.' );
 
-			runTest( () => {
-				expect( blocks ).toHaveLength( 1 );
-			}, 'Block registers multiple blocks.' );
+	// 		runTest( () => {
+	// 			expect( blocks ).toHaveLength( 1 );
+	// 		}, 'Block registers multiple blocks.' );
 
-			await insertBlock( blocks[ 0 ] );
-			const blockList = await getAllBlocks();
+	// 		await insertBlock( blocks[ 0 ] );
+	// 		const blockList = await getAllBlocks();
 
-			runTest( () => {
-				expect( blockList ).toHaveLength( 1 );
-			}, 'Block was not found in document after insert.' );
-		} catch ( e ) {
-            core.setFailed( e );
-            throw new Error();
-		}
-	} );
+	// 		runTest( () => {
+	// 			expect( blockList ).toHaveLength( 1 );
+	// 		}, 'Block was not found in document after insert.' );
+	// 	} catch ( e ) {
+    //         core.setFailed( e );
+    //         throw new Error();
+	// 	}
+	// } );
 } );
