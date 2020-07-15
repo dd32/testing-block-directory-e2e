@@ -42,7 +42,15 @@ describe( `Block Directory Tests`, () => {
 
     const { searchTerm } = github.context.payload.client_payload;
    
-    core.info(`Running Tests for ${searchTerm}`);
+    core.info(`
+
+
+    -------------------------------
+    Running Tests for "${searchTerm}"
+    -------------------------------
+    
+    
+    `);
 
     it( 'Block returns from API and installs', async () => {
 		try {
