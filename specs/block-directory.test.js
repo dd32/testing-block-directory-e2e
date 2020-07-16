@@ -35,14 +35,13 @@ const urlMatch = ( url ) => {
 	return url.indexOf( urlPart ) >= 0 || url.indexOf( encoded ) >= 0;
 };
 
+
+const { searchTerm } = github.context.payload.client_payload;
+
 core.info(`
-
-
 --------------------------------------------------------------
 Running Tests for "${searchTerm}"
 --------------------------------------------------------------
-
-
 `);
 
 describe( `Block Directory Tests`, () => {
@@ -51,8 +50,6 @@ describe( `Block Directory Tests`, () => {
 		await removeAllBlocks();
     } );
 
-    const { searchTerm } = github.context.payload.client_payload;
-   
     it( 'Block returns from API and installs', async () => {
 		try {
 
