@@ -28,11 +28,22 @@ import {
 // We don't want to see warnings during these tests
 console.warn = () => {};
 
+// Depending on the environment, the url may be encoded or not.
 const urlMatch = ( url ) => {
 	const urlPart = '/wp/v2/block-directory/search';
 	const encoded = encodeURIComponent( urlPart );
 	return url.indexOf( urlPart ) >= 0 || url.indexOf( encoded ) >= 0;
 };
+
+core.info(`
+
+
+--------------------------------------------------------------
+Running Tests for "${searchTerm}"
+--------------------------------------------------------------
+
+
+`);
 
 describe( `Block Directory Tests`, () => {
 	beforeEach( async () => {
@@ -42,16 +53,6 @@ describe( `Block Directory Tests`, () => {
 
     const { searchTerm } = github.context.payload.client_payload;
    
-    core.info(`
-
-
-    -------------------------------
-    Running Tests for "${searchTerm}"
-    -------------------------------
-    
-    
-    `);
-
     it( 'Block returns from API and installs', async () => {
 		try {
 
@@ -93,10 +94,6 @@ describe( `Block Directory Tests`, () => {
 				expect( blocks.length ).toBeGreaterThan( 0 );
             }, `Couldn't install "${searchTerm}".` );
 
-
-
-
-            
             core.setOutput( 'success', true )
 		} catch ( e ) {
             core.setFailed( e );
@@ -105,32 +102,4 @@ describe( `Block Directory Tests`, () => {
             throw new Error();
 		}
 	} );
-
-    // This initially tested the block itself without the directory. We don't need this right now until we get other things sorted.
-	// it( 'Block can be inserted in the document on page reload', async () => {
-	// 	try {
-	// 		const blocks = await getThirdPartyBlocks();
-
-	// 		runTest( () => {
-	// 			expect( blocks.length ).toBeGreaterThan( 0 );
-	// 		}, 'Could not find block in registered block list on page load.' );
-
-	// 		runTest( () => {
-	// 			expect( blocks ).toHaveLength( 1 );
-	// 		}, 'Block registers multiple blocks.' );
-
-	// 		await insertBlock( blocks[ 0 ] );
-	// 		const blockList = await getAllBlocks();
-
-	// 		runTest( () => {
-	// 			expect( blockList ).toHaveLength( 1 );
-    //         }, 'Block was not found in document after insert.' );
-    //         core.setOutput( 'success', true )
-	// 	} catch ( e ) {
-    //         core.setFailed( e );
-    //         core.setOutput( 'error', e )
-    //         core.setOutput( 'success', false )
-    //         throw new Error();
-	// 	}
-	// } );
 } );
